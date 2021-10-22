@@ -1,0 +1,220 @@
+using System;
+using System.Data.SqlClient;
+ 
+namespace CreateTable
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {            
+            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=ComputerShop;Integrated Security=True");
+            string query =
+            @"CREATE TABLE dbo.Products
+                (
+                    ID int IDENTITY(1,1) NOT NULL,
+                    Name nvarchar(50) NULL,
+                    Price nvarchar(50) NULL,
+                    Date datetime NULL,
+                    CONSTRAINT pk_id PRIMARY KEY (ID)
+                );";
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Table Created Successfully");
+            }
+            catch(SqlException e)
+            {
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+            }
+            finally
+            {
+                con.Close();
+                Console.ReadKey();
+            }
+        }
+    }
+}
+Product Table
+RENAME A TABLE USING C# ADO.NET
+You can rename a SQL Table using the following block of codes.
+
+SQL Script
+
+EXEC sp_rename 'Products', 'Accessories'
+
+Program
+
+using System;
+using System.Data.SqlClient;
+ 
+namespace RenameTable
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {            
+            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=ComputerShop;Integrated Security=True");
+            string query = @"EXEC sp_rename 'Products', 'Accessories'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Table Renamed Successfully");
+            }
+            catch(SqlException e)
+            {
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+            }
+            finally
+            {
+                con.Close();
+                Console.ReadKey();
+            }
+        }
+    }
+}
+ Rename Table
+ALTER TABLE USING ADO.NET C#
+In this example, I will show you how can you add, update or remove a column from SQL Table.
+
+Adding a New Column
+
+
+SQL Script
+
+ALTER TABLE Accessories
+ADD Stock nvarchar(50);
+Executing above SQL Script using c# ado.net will create a new table Stock navarchar(50) in Accessories Table.
+
+Programming Example for Adding a New Column
+
+using System;
+using System.Data.SqlClient;
+ 
+namespace CreateColumn
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {            
+            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=ComputerShop;Integrated Security=True");
+            string query = 
+                @"ALTER TABLE Accessories
+                  ADD Stock nvarchar(50);";
+ 
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Column Created Successfully");
+            }
+            catch(SqlException e)
+            {
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+            }
+            finally
+            {
+                con.Close();
+                Console.ReadKey();
+            }
+        }
+    }
+}
+Adding a Column
+
+Editing or Altering a Column
+
+
+SQL Script
+
+ALTER TABLE Accessories
+ALTER COLUMN Stock int;
+
+
+In this example, I will change column Stock nvarchar(50) to Stock int.
+
+Programming Example for Editing or Altering a Column
+
+using System;
+using System.Data.SqlClient;
+ 
+namespace CreateColumn
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {            
+            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=ComputerShop;Integrated Security=True");
+            string query =
+                @"ALTER TABLE Accessories
+                  ALTER COLUMN Stock int;";
+ 
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Column Edited Successfully");
+            }
+            catch(SqlException e)
+            {
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+            }
+            finally
+            {
+                con.Close();
+                Console.ReadKey();
+            }
+        }
+    }
+}
+Edit Column 
+Drop or Delete a Column
+
+
+SQL Script
+
+ALTER TABLE Accessories
+DROP COLUMN Stock;
+You can delete existing column using the following code.
+
+
+Programming Example
+
+using System;
+using System.Data.SqlClient;
+ 
+namespace DeleteColumn
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {            
+            SqlConnection con = new SqlConnection(@"Data Source=.\SQLEXPRESS;Initial Catalog=ComputerShop;Integrated Security=True");
+            string query =
+                @"ALTER TABLE Accessories
+                  DROP COLUMN Stock;";
+ 
+            SqlCommand cmd = new SqlCommand(query, con);
+            try
+            {
+                con.Open();
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Column Deleted Successfully");
+            }
+            catch(SqlException e)
+            {
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+            }
+            finally
+            {
+                con.Close();
+                Console.ReadKey();
+            }
+        }
+    }
+}
